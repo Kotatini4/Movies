@@ -1,7 +1,6 @@
 const db = require("../config/database");
-
+const { Sequelize } = require("sequelize");
 const initModels = require("../models/init-models");
-
 const models = initModels(db);
 
 // Get all movie categories
@@ -101,6 +100,26 @@ exports.getCategoryCount = async (req, res) => {
         console.error("Error getting category count:", error);
         res.status(500).json({
             message: "An error occurred while getting category count",
+        });
+    }
+};
+
+//
+exports.searchCategoriesByName = async (req, res) => {
+    const { name } = req.query;
+    try {
+        const categories = await models.category.findAll({
+            where: {
+                name: {
+                    [Sequelize.Op.like]: `%${name}%`,
+                },
+            },
+        });
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "An error occurred while searching for categories",
         });
     }
 };

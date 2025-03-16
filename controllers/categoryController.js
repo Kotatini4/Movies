@@ -106,12 +106,12 @@ exports.getCategoryCount = async (req, res) => {
 
 //
 exports.searchCategoriesByName = async (req, res) => {
-    const { name } = req.query;
+    const { name } = req.params; // Используем req.params
     try {
         const categories = await models.category.findAll({
             where: {
                 name: {
-                    [Sequelize.Op.like]: `%${name}%`,
+                    [Sequelize.Op.iLike]: `%${name}%`,
                 },
             },
         });

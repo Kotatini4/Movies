@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../controllers/categoryController");
 
-router.get("/categories/search", categoryController.searchCategoriesByName);
+router.get(
+    "/categories/search/:name",
+    categoryController.searchCategoriesByName
+);
 
 // GET count of categories
 router.get("/categories/count", categoryController.getCategoryCount);

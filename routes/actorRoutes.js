@@ -3,7 +3,7 @@ const router = express.Router();
 const actorController = require("../controllers/actorController");
 
 router.get("/actor/count", actorController.getActorCount);
-router.get("/actor/search", actorController.searchActorsByName);
+router.get("/actor/search/:name", actorController.searchActorsByName);
 router.get("/actor", actorController.getAllActors);
 router.post("/actor", actorController.createActor);
 router.get("/actor/:id", actorController.getActorById);

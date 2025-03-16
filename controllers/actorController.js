@@ -99,9 +99,9 @@ exports.getActorCount = async (req, res) => {
     }
 };
 
-// Search actors by name
+// Ваши функции контроллера
 exports.searchActorsByName = async (req, res) => {
-    const { name } = req.query;
+    const { name } = req.params;
     try {
         const actors = await models.actor.findAll({
             where: {

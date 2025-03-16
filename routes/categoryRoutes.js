@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../controllers/categoryController");
 
+//поиск по названию категории, не зависимо от регистра
 router.get(
     "/categories/search/:name",
     categoryController.searchCategoriesByName

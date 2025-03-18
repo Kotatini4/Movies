@@ -23,4 +23,10 @@ router.put("/film/:id", filmController.updateFilm);
 // Удалить фильм по ID
 router.delete("/film/:id", filmController.deleteFilm);
 
+// Поиск фильмов по языку
+router.get("/film/language/:language_id", filmController.getFilmsByLanguageId);
+
+// Поиск фильмов по категории
+router.get("/film/category/:category_id", filmController.getFilmsByCategoryId);
+
 module.exports = router;

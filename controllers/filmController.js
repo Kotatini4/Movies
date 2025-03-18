@@ -164,3 +164,36 @@ exports.getFilmCount = async (req, res) => {
         });
     }
 };
+
+// Поиск фильмов по языку
+exports.getFilmsByLanguageId = async (req, res) => {
+    const { language_id } = req.params;
+    try {
+        const films = await models.film.findAll({
+            where: { language_id },
+        });
+        res.status(200).json(films);
+    } catch (error) {
+        console.error("Error fetching films by language ID:", error);
+        res.status(500).json({
+            message: "An error occurred while fetching films by language ID",
+        });
+    }
+};
+
+// Поиск фильмов по категории
+exports.getFilmsByCategoryId = async (req, res) => {
+    const { category_id } = req.params;
+    try {
+        const films = await models.film_category.findAll({
+            where: { category_id },
+            include: [{ model: models.film, as: "film" }],
+        });
+        res.status(200).json(films);
+    } catch (error) {
+        console.error("Error fetching films by category ID:", error);
+        res.status(500).json({
+            message: "An error occurred while fetching films by category ID",
+        });
+    }
+};

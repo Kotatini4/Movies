@@ -106,8 +106,8 @@ exports.searchActorsByName = async (req, res) => {
         const actors = await models.actor.findAll({
             where: {
                 [Sequelize.Op.or]: [
-                    { first_name: { [Sequelize.Op.like]: `%${name}%` } },
-                    { last_name: { [Sequelize.Op.like]: `%${name}%` } },
+                    { first_name: { [Sequelize.Op.iLike]: `%${name}%` } },
+                    { last_name: { [Sequelize.Op.iLike]: `%${name}%` } },
                 ],
             },
         });

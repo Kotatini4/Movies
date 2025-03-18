@@ -33,4 +33,13 @@ module.exports = function (sequelize, DataTypes) {
             ],
         }
     );
+    // Добавляем ассоциации
+    Category.associate = (models) => {
+        Category.hasMany(models.film_category, {
+            foreignKey: "category_id",
+            as: "film_categories",
+        });
+    };
+
+    return Categor;
 };

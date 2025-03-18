@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const filmActorController = require("../controllers/filmActorController"); // Убедитесь, что путь правильный
+const filmActorController = require("../controllers/filmActorController");
 
 // Маршруты для film_actor
 

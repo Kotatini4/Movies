@@ -30,4 +30,4 @@ sequelize
         console.error("Unable to connect to the database:", err);
     });
 
-module.exports = sequelize; // Экспортируем экземпляр sequelize, а не Sequelize
+module.exports = sequelize;

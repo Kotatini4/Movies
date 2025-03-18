@@ -105,4 +105,13 @@ module.exports = function (sequelize, DataTypes) {
             ],
         }
     );
+    // Добавляем ассоциации
+    Film.associate = (models) => {
+        Film.hasMany(models.film_category, {
+            foreignKey: "film_id",
+            as: "film_categories",
+        });
+    };
+
+    return Film;
 };

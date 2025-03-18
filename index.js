@@ -3,8 +3,9 @@ const app = express();
 const sequelize = require("./config/database");
 const categoryRoutes = require("./routes/categoryRoutes");
 const actorRoutes = require("./routes/actorRoutes");
-const filmActorRoutes = require("./routes/filmActorRoutes"); // Убедитесь, что путь правильный
+const filmActorRoutes = require("./routes/filmActorRoutes");
 const filmRoutes = require("./routes/filmRoutes");
+const filmCategoryRoutes = require("./routes/filmCategoryRoutes");
 
 // Middleware для парсинга JSON
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use("/api", categoryRoutes);
 app.use("/api", actorRoutes);
 app.use("/api", filmActorRoutes);
 app.use("/api", filmRoutes);
+app.use("/api", filmCategoryRoutes);
 
 // Порт, на котором будет работать сервер
 const PORT = process.env.PORT || 3000;

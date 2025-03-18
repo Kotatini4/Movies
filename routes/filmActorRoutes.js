@@ -3,10 +3,20 @@ const router = express.Router();
 const filmActorController = require("../controllers/filmActorController"); // Убедитесь, что путь правильный
 
 // Маршруты для film_actor
+
+// Получить все связи фильмов и актеров.
 router.get("/film_actors", filmActorController.getAllFilmActors);
+
+// Получить связь фильма и актера по ID.
 router.get("/film_actors/:id", filmActorController.getFilmActorById);
+
+// Создать новую связь фильма и актера.
 router.post("/film_actors", filmActorController.createFilmActor);
+
+// Обновить связь фильма и актера по ID
 router.put("/film_actors/:id", filmActorController.updateFilmActor);
+
+// Удалить связь фильма и актера по ID.
 router.delete("/film_actors/:id", filmActorController.deleteFilmActor);
 
 // Маршрут для получения фильмов по actor_id

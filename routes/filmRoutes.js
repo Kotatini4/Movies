@@ -11,6 +11,12 @@ router.get("/film/search/:title", filmController.searchFilmsByTitle);
 // Получить все фильмы
 router.get("/film", filmController.getAllFilms);
 
+// Маршрут для получения всех фильмов с актерами и категориями
+router.get(
+    "/film/with-actors-categories",
+    filmController.getAllFilmsWithActorsAndCategories
+);
+
 // Получить фильм по ID
 router.get("/film/:id", filmController.getFilmById);
 

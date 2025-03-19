@@ -84,7 +84,7 @@ exports.deleteFilmActor = async (req, res) => {
     }
 };
 
-// Получить фильмы по actor_id
+// Получить фильмы по ID актера.
 exports.getFilmsByActorId = async (req, res) => {
     const { actor_id } = req.params;
     try {
@@ -101,6 +101,7 @@ exports.getFilmsByActorId = async (req, res) => {
     }
 };
 
+// Получить актеров по ID фильма.
 exports.getActorsByFilmId = async (req, res) => {
     const { film_id } = req.params; // Получаем film_id из параметров маршрута
     try {

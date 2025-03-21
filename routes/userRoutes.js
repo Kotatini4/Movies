@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController"); // Импорт контроллера
+const userController = require("../controllers/userController");
 
 // Получить всех пользователей
 router.get("/user", userController.getAllUsers);

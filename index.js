@@ -6,6 +6,7 @@ const actorRoutes = require("./routes/actorRoutes");
 const filmActorRoutes = require("./routes/filmActorRoutes");
 const filmRoutes = require("./routes/filmRoutes");
 const filmCategoryRoutes = require("./routes/filmCategoryRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Middleware для парсинга JSON
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use("/api", actorRoutes);
 app.use("/api", filmActorRoutes);
 app.use("/api", filmRoutes);
 app.use("/api", filmCategoryRoutes);
+app.use("/api", userRoutes);
 
 // Порт, на котором будет работать сервер
 const PORT = process.env.PORT || 3000;

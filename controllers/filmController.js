@@ -5,8 +5,13 @@ const models = initModels(db);
 
 // Получить все фильмы
 exports.getAllFilms = async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
     try {
-        const films = await models.film.findAll();
+        const films = await models.film.findAll({
+            limit: parseInt(limit),
+            offset: offset,
+        });
         res.status(200).json(films);
     } catch (error) {
         console.error("Error fetching films:", error);

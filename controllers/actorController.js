@@ -5,8 +5,12 @@ const models = initModels(db);
 
 // Получить всех актеров.
 exports.getAllActors = async (req, res) => {
+    const { sortBy = "actor_id", order = "ASC" } = req.query; // По умолчанию сортировка по actor_id в порядке ASC
+
     try {
-        const actors = await models.actor.findAll();
+        const actors = await models.actor.findAll({
+            order: [[sortBy, order]], // Сортировка по полю sortBy и порядку order
+        });
         res.status(200).json(actors);
     } catch (error) {
         console.error(error);

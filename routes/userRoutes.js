@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const filmController = require("../controllers/userController");
+const userController = require("../controllers/userController"); // Импорт контроллера
 
 // Получить всех пользователей
 router.get("/user", userController.getAllUsers);
@@ -16,13 +16,5 @@ router.put("/user/:id", userController.updateUser);
 
 // Удалить пользователя по ID
 router.delete("/user/:id", userController.deleteUser);
-
-// Поиск пользователей по имени
-router.get("/user/search/:username", userController.searchUsersByUsername);
-
-// Получить количество пользователей
-router.get("/user/count", userController.getUserCount);
-
-module.exports = router;
 
 module.exports = router;

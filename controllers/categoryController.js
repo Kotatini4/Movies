@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const initModels = require("../models/init-models");
 const models = initModels(db);
 
-// Get all movie categories
+// Получить все категории фильмов
 exports.getAllCategories = async (req, res) => {
     try {
         const categories = await models.category.findAll();
@@ -16,7 +16,7 @@ exports.getAllCategories = async (req, res) => {
     }
 };
 
-// Create a new movie category
+// Создать новую категорию фильма
 exports.createCategory = async (req, res) => {
     const { name } = req.body;
     try {
@@ -30,7 +30,7 @@ exports.createCategory = async (req, res) => {
     }
 };
 
-// Get movie category information by ID
+// Получить информацию о категории фильма по ID
 exports.getCategoryById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -50,7 +50,7 @@ exports.getCategoryById = async (req, res) => {
     }
 };
 
-// Update movie category information
+// Обновить информацию о категории фильма
 exports.updateCategory = async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -71,7 +71,7 @@ exports.updateCategory = async (req, res) => {
     }
 };
 
-// Delete a movie category
+// Удалить категорию фильма
 exports.deleteCategory = async (req, res) => {
     const { id } = req.params;
     try {
@@ -90,7 +90,7 @@ exports.deleteCategory = async (req, res) => {
         });
     }
 };
-
+// Получить количество категорий фильмов
 exports.getCategoryCount = async (req, res) => {
     try {
         // Используем метод count() Sequelize для подсчёта количества записей
@@ -104,7 +104,7 @@ exports.getCategoryCount = async (req, res) => {
     }
 };
 
-//
+// Поиск категорий по названию
 exports.searchCategoriesByName = async (req, res) => {
     const { name } = req.params; // Используем req.params
     try {

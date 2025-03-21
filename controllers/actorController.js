@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const initModels = require("../models/init-models");
 const models = initModels(db);
 
-// Get all actors
+// Получить всех актеров.
 exports.getAllActors = async (req, res) => {
     try {
         const actors = await models.actor.findAll();
@@ -16,7 +16,7 @@ exports.getAllActors = async (req, res) => {
     }
 };
 
-// Create a new actor
+// Создать нового актера.
 exports.createActor = async (req, res) => {
     const { first_name, last_name } = req.body;
     try {
@@ -30,7 +30,7 @@ exports.createActor = async (req, res) => {
     }
 };
 
-// Get actor information by ID
+// Получить информацию об актере по ID
 exports.getActorById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -49,7 +49,7 @@ exports.getActorById = async (req, res) => {
     }
 };
 
-// Update actor information
+// Обновить информацию об актере.
 exports.updateActor = async (req, res) => {
     const { id } = req.params;
     const { first_name, last_name } = req.body;
@@ -68,7 +68,7 @@ exports.updateActor = async (req, res) => {
     }
 };
 
-// Delete an actor
+// Удалить актера.
 exports.deleteActor = async (req, res) => {
     const { id } = req.params;
     try {
@@ -86,7 +86,7 @@ exports.deleteActor = async (req, res) => {
     }
 };
 
-// Get the total count of actors
+// Получить общее количество актеров.
 exports.getActorCount = async (req, res) => {
     try {
         const count = await models.actor.count();

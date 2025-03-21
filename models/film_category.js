@@ -41,17 +41,4 @@ module.exports = function (sequelize, DataTypes) {
             ],
         }
     );
-    // Добавляем ассоциации
-    FilmCategory.associate = (models) => {
-        FilmCategory.belongsTo(models.film, {
-            foreignKey: "film_id",
-            as: "film",
-        });
-        FilmCategory.belongsTo(models.category, {
-            foreignKey: "category_id",
-            as: "category",
-        });
-    };
-
-    return FilmCategory;
 };

@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const initModels = require("../models/init-models");
 const models = initModels(db);
 
-// Get all film and category relationships
+// Получить все связи между фильмами и категориями.
 exports.getAllFilmCategories = async (req, res) => {
     try {
         const filmCategories = await models.film_category.findAll();
@@ -20,7 +20,7 @@ exports.getAllFilmCategories = async (req, res) => {
     }
 };
 
-// Get film and category relationship by ID
+// Получить связь между фильмом и категорией по ID
 exports.getFilmCategoryById = async (req, res) => {
     try {
         const { film_id, category_id } = req.params;
@@ -43,7 +43,7 @@ exports.getFilmCategoryById = async (req, res) => {
     }
 };
 
-// Create a new film and category relationship
+// Создать новую связь между фильмом и категорией.
 exports.createFilmCategory = async (req, res) => {
     try {
         const { film_id, category_id } = req.body;
@@ -61,7 +61,7 @@ exports.createFilmCategory = async (req, res) => {
     }
 };
 
-// Update film and category relationship by ID
+// Обновить связь между фильмом и категорией по ID
 exports.updateFilmCategory = async (req, res) => {
     try {
         const { film_id, category_id } = req.params;
@@ -87,7 +87,7 @@ exports.updateFilmCategory = async (req, res) => {
     }
 };
 
-// Delete film and category relationship by ID
+// Удалить связь между фильмом и категорией по ID
 exports.deleteFilmCategory = async (req, res) => {
     try {
         const { film_id, category_id } = req.params;
@@ -112,46 +112,7 @@ exports.deleteFilmCategory = async (req, res) => {
     }
 };
 
-exports.getFilmsByCategoryId = async (req, res) => {
-    try {
-        const { category_id } = req.params;
-        const categoryId = parseInt(category_id, 10);
-
-        // Проверка, что categoryId является числом
-        if (isNaN(categoryId)) {
-            return res.status(400).json({ message: "Invalid category ID." });
-        }
-
-        // Получаем параметры пагинации из запроса
-        const { page = 1, limit = 10 } = req.query;
-        const offset = (page - 1) * limit;
-
-        // Выполняем запрос с пагинацией
-        const films = await models.film_category.findAll({
-            where: { category_id: categoryId },
-            include: [{ model: models.film, as: "film" }],
-            limit: parseInt(limit), // Количество записей на странице
-            offset: parseInt(offset), // Смещение для пагинации
-        });
-
-        // Если фильмы не найдены, вернуть 404
-        if (films.length === 0) {
-            return res
-                .status(404)
-                .json({ message: "No films found for this category." });
-        }
-
-        // Возвращаем найденные фильмы
-        res.status(200).json(films);
-    } catch (error) {
-        console.error("Error retrieving films by category ID:", error);
-        res.status(500).json({
-            message: "An error occurred while retrieving films.",
-        });
-    }
-};
-
-// Get categories by film ID
+// Получить категорию по ID фильма.
 exports.getCategoriesByFilmId = async (req, res) => {
     try {
         const { film_id } = req.params;
@@ -164,6 +125,29 @@ exports.getCategoriesByFilmId = async (req, res) => {
         console.error("Error retrieving categories by film ID:", error);
         res.status(500).json({
             message: "An error occurred while retrieving categories by film ID",
+        });
+    }
+};
+
+// Получить фильмы по ID категории.
+exports.getFilmsByCategoryId = async (req, res) => {
+    const { category_id } = req.params;
+
+    try {
+        const films = await models.film_category.findAll({
+            where: { category_id },
+            include: [{ model: models.film, as: "film" }], // Включаем информацию о фильмах
+        });
+        // Если актеры не найдены, возвращаем пустой массив
+        if (films.length === 0) {
+            return res.status(200).json([]);
+        }
+
+        res.status(200).json(films);
+    } catch (error) {
+        console.error("Error fetching films by category ID:", error);
+        res.status(500).json({
+            message: "An error occurred while fetching films by category ID",
         });
     }
 };

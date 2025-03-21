@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
+const bcrypt = require("bcryptjs");
+
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define(
+    const User = sequelize.define(
         "user",
         {
             user_id: {
@@ -12,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
             username: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-                unique: true,
+                unique: "user_username_key",
             },
             password: {
                 type: DataTypes.STRING(255),
@@ -31,11 +33,32 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: "user_id" }],
                 },
                 {
-                    name: "idx_user_username",
+                    name: "user_username_key",
                     unique: true,
                     fields: [{ name: "username" }],
                 },
             ],
+            hooks: {
+                beforeCreate: async (user) => {
+                    if (user.password) {
+                        const salt = await bcrypt.genSalt(10);
+                        user.password = await bcrypt.hash(user.password, salt);
+                    }
+                },
+                beforeUpdate: async (user) => {
+                    if (user.changed("password")) {
+                        const salt = await bcrypt.genSalt(10);
+                        user.password = await bcrypt.hash(user.password, salt);
+                    }
+                },
+            },
         }
     );
+
+    // Метод для сравнения паролей
+    User.prototype.comparePassword = async function (candidatePassword) {
+        return await bcrypt.compare(candidatePassword, this.password);
+    };
+
+    return User;
 };

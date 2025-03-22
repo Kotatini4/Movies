@@ -9,7 +9,7 @@ router.get("/user", userController.getAllUsers);
 router.get("/user/:id", userController.getUserById);
 
 // Создать нового пользователя
-router.post("/user", userController.createUser);
+// router.post("/user", userController.createUser);
 
 // Обновить пользователя по ID
 router.put("/user/:id", userController.updateUser);

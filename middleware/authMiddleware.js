@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
 
     try {
         // Проверяем токен с помощью секретного ключа
-        const decoded = jwt.verify(token, "your_secret_key");
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         // Сохраняем идентификатор пользователя в объекте запроса
         req.userId = decoded.userId;

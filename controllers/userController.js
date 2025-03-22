@@ -34,18 +34,18 @@ exports.getUserById = async (req, res) => {
 };
 
 // Создать нового пользователя
-exports.createUser = async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await models.user.create({ username, password });
-        res.status(201).json(user);
-    } catch (error) {
-        console.error("Error creating user:", error);
-        res.status(500).json({
-            message: "An error occurred while creating the user",
-        });
-    }
-};
+// exports.createUser = async (req, res) => {
+//     const { username, password } = req.body;
+//     try {
+//         const user = await models.user.create({ username, password });
+//         res.status(201).json(user);
+//     } catch (error) {
+//         console.error("Error creating user:", error);
+//         res.status(500).json({
+//             message: "An error occurred while creating the user",
+//         });
+//     }
+// };
 
 // Обновить пользователя по ID
 exports.updateUser = async (req, res) => {

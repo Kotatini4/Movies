@@ -13,10 +13,9 @@ exports.register = async (req, res) => {
             return res.status(400).json({ message: "Username already exists" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await models.user.create({
             username,
-            password: hashedPassword,
+            password,
         });
         res.status(201).json({ message: "User registered successfully", user });
     } catch (error) {
@@ -31,12 +30,15 @@ exports.login = async (req, res) => {
     try {
         const user = await models.user.findOne({ where: { username } });
         if (!user) {
-            return res.status(401).json({ message: "Invalid credentials" });
+            return res.status(401).json({ message: "2 - Invalid credentials" });
         }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(hashedPassword, user.password);
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Invalid credentials" });
+            return res.status(401).json({ message: "1 - Invalid credentials" });
         }
 
         const token = jwt.sign({ userId: user.user_id }, "your_secret_key", {

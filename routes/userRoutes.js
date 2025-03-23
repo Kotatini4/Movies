@@ -4,10 +4,10 @@ const userController = require("../controllers/userController");
 const auth = require("../middleware/authMiddleware");
 
 // Получить всех пользователей
-router.get("/user", userController.getAllUsers);
+router.get("/user", auth, userController.getAllUsers);
 
 // Получить пользователя по ID
-router.get("/user/:id", userController.getUserById);
+router.get("/user/:id", auth, userController.getUserById);
 
 // Создать нового пользователя
 // router.post("/user", userController.createUser);

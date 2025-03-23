@@ -30,15 +30,13 @@ exports.login = async (req, res) => {
     try {
         const user = await models.user.findOne({ where: { username } });
         if (!user) {
-            return res.status(401).json({ message: "2 - Invalid credentials" });
+            return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword, user.password);
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        // Используйте метод comparePassword для сравнения паролей
+        const isPasswordValid = await user.comparePassword(password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "1 - Invalid credentials" });
+            return res.status(401).json({ message: "Invalid credentials" });
         }
 
         const token = jwt.sign(
@@ -46,6 +44,10 @@ exports.login = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN }
         );
+
+        // Выводим токен в консоль
+        console.log("Generated token:", token);
+
         res.status(200).json({ message: "Login successful", token });
     } catch (error) {
         console.error("Error logging in:", error);
